@@ -1,0 +1,61 @@
+.Header {
+    font-size: 50px;
+    font-weight: bold;
+    color: red;
+    background-colour:black;
+    text-align: center;
+    margin-top: 20px;
+    border: 10px solid pink;
+}
+/* Style for the navigation links */
+nav a {
+  text-decoration: none; /* Remove underlines from links */
+  color: #0077b6; /* Set the link color */
+  font-weight: bold; /* Make the text bold */
+  margin-right: 20px; /* Add spacing between links */
+  transition: color 0.3s; /* Add a smooth color transition on hover */
+
+  
+  &:hover {
+    color: #ff6b6b; 
+  }
+}
+.edd {
+  background-color: #f0f0f0;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px;
+  font-size: 18px;
+  color: red;
+}
+
+
+h2 {
+  font-size: 24px; /* Adjust the font size as needed */
+  color:blue;
+  text-align: center; /* Center-align the text */
+  margin-top: 20px; /* Add some top margin for spacing */
+}
+
+.ess {
+  background-color: #f0f0f0;
+  padding: 20px;
+  text-weight:bold;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin: 10px;
+  font-size: 18px;
+  color: Gold;
+}
+
+.song {
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  color: #333;
+  background-color: #f0f0f0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  margin: 10px;
+  text-align:center;
+}
