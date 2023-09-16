@@ -1,0 +1,43 @@
+<?php
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["upload-song"])) {
+    $targetDirectory = "uploads/"; // Create an "uploads" directory where the songs will be stored
+    $targetFile = $targetDirectory . basename($_FILES["song-file"]["name"]);
+    
+    // Check if the file is an allowed format (e.g., mp3 or wav)
+    $allowedExtensions = array("mp3", "wav");
+    $fileExtension = strtolower(pathinfo($targetFile, PATHINFO_EXTENSION));
+    
+    if (in_array($fileExtension, $allowedExtensions)) {
+        // Move the uploaded file to the server
+        if (move_uploaded_file($_FILES["song-file"]["tmp_name"], $targetFile)) {
+            // Store song information in a database (you need a database connection)
+            $songTitle = $_POST["song-title"];
+            $songArtist = $_POST["song-artist"];
+            $songGenre = $_POST["song-genre"];
+            
+            // Establish your database connection here (using PDO or MySQLi)
+            try {
+                $pdo = new PDO("mysql:host=your_db_host;dbname=your_db_name", "your_db_username", "your_db_password");
+                $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+                // Example PDO code to insert data into a songs table
+                $sql = "INSERT INTO songs (title, artist, genre, file_path) VALUES (:title, :artist, :genre, :file_path)";
+                $stmt = $pdo->prepare($sql);
+                $stmt->bindParam(':title', $songTitle);
+                $stmt->bindParam(':artist', $songArtist);
+                $stmt->bindParam(':genre', $songGenre);
+                $stmt->bindParam(':file_path', $targetFile);
+                $stmt->execute();
+
+                echo "Song uploaded successfully!";
+            } catch (PDOException $e) {
+                echo "Database error: " . $e->getMessage();
+            }
+        } else {
+            echo "Error uploading the file.";
+        }
+    } else {
+        echo "Invalid file format. Please upload an mp3 or wav file.";
+    }
+}
+?>
